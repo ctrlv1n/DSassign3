@@ -1,0 +1,46 @@
+#include <stdio.h>
+#define N 100
+int s[N],top=-1;
+
+void push(int x){
+    if(top==N-1) printf("FULL\n");
+    else s[++top]=x;
+}
+
+int pop(){
+    if(top==-1) return -1;
+    return s[top--];
+}
+
+int isEmpty(){
+    return top==-1;
+}
+
+int isFull(){
+    return top==N-1;
+}
+
+int peek(){
+    if(top==-1) return -1;
+    return s[top];
+}
+
+void display(){
+    if(top==-1){ printf("EMPTY\n"); return; }
+    for(int i=top;i>=0;i--) printf("%d ",s[i]);
+    printf("\n");
+}
+
+int main(){
+    int c,x;
+    while(1){
+        scanf("%d",&c);
+        if(c==1){ scanf("%d",&x); push(x); }
+        else if(c==2) printf("%d\n",pop());
+        else if(c==3) printf("%d\n",isEmpty());
+        else if(c==4) printf("%d\n",isFull());
+        else if(c==5) display();
+        else if(c==6) printf("%d\n",peek());
+        else break;
+    }
+}
