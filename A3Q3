@@ -1,27 +1,5 @@
-#include <stdio.h>
-#include <string.h>
-#define N 1000
-
-char st[N];
-int top=-1;
-
-void push(char c){ st[++top]=c; }
-char pop(){ return st[top--]; }
-
-int main(){
-    char s[1000];
-    gets(s);
-    for(int i=0;i<strlen(s);i++){
-        char c=s[i];
-        if(c=='('||c=='{'||c=='[') push(c);
-        else if(c==')'||c=='}'||c==']'){
-            if(top==-1){ printf("NO"); return 0; }
-            char t=pop();
-            if((c==')'&&t!='(')||(c=='}'&&t!='{')||(c==']'&&t!='[')){
-                printf("NO"); return 0;
-            }
-        }
-    }
-    if(top==-1) printf("YES");
-    else printf("NO");
-}
+#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+int main(){ string s; getline(cin,s); stack<char> st; for(char c:s){ if(c=='('||c=='{'||c=='[') st.push(c); else if(c==')'||c=='}'||c==']'){ if(st.empty()){ cout<<"NO"; return 0; } char t=st.top(); st.pop(); if((c==')'&&t!='(')||(c=='}'&&t!='{')||(c==']'&&t!='[')){ cout<<"NO"; return 0; } } } cout<<(st.empty()?"YES":"NO"); return 0; }
