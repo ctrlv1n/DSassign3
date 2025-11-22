@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <ctype.h>
+#define N 1000
+
+char st[N];
+int top=-1;
+
+int prec(char c){
+    if(c=='^') return 3;
+    if(c=='*'||c=='/') return 2;
+    if(c=='+'||c=='-') return 1;
+    return 0;
+}
+void push(char c){ st[++top]=c; }
+char pop(){ return st[top--]; }
+char peek(){ return st[top]; }
+
+int main(){
+    char s[1000];
+    gets(s);
+    for(int i=0;s[i];i++){
+        char c=s[i];
+        if(isalnum(c)) printf("%c",c);
+        else if(c=='(') push(c);
+        else if(c==')'){
+            while(top!=-1 && peek()!='(') printf("%c",pop());
+            pop();
+        } else {
+            while(top!=-1 && prec(peek())>=prec(c)) printf("%c",pop());
+            push(c);
+        }
+    }
+    while(top!=-1) printf("%c",pop());
+}
